@@ -3,7 +3,7 @@ import numpy as np
 
 
 def win(state, player):  # player  = 1 for X and -1 for O
-    moves = np.array(np.where(state == player))
+    moves = np.where(state == player)[0]
 
     wins = [(0, 1, 2), (3, 4, 5), (6, 7, 8),  # winning sequences
             (0, 3, 6), (1, 4, 7), (2, 5, 8),
@@ -17,6 +17,6 @@ def win(state, player):  # player  = 1 for X and -1 for O
 
 
 def allowed(state, move):
-    taken = np.array(np.where(state != 0))
+    taken = np.where(state != 0)[0]
 
     return move not in taken
