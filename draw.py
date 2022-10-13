@@ -19,6 +19,3 @@ def draw(state):
 
         if (i+1) % 3 == 0:
             print('\n')
-
-
-draw(np.array([0, 1, -1, 1, 0, 0, 1, -1, 0]))
