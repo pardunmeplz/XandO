@@ -11,9 +11,9 @@ for _ in range(9):
     player = 1 if state.sum() == 0 else -1  # 1 -> X and -1 -> Y
 
     if player == 1:
-        move = d.playerInput(state)
-    else:
         move = PC.nextMove(state)
+    else:
+        move = d.playerInput(state)
 
     state[move] = player
     d.render(state)

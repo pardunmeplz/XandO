@@ -52,5 +52,4 @@ def nextMove(state):
     else:
         analyze.sort(key=lambda tup: tup[0])
 
-    print(analyze)
     return analyze[0][1]
