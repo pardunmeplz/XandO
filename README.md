@@ -3,6 +3,7 @@ Just a basic x and o game running in the terminal
 
 each box is numbered from 0 - 8 as
 
+|    |    |    |
 | -- | -- | -- |
 |0   |1   |2   |
 |3   |4   |5   |
