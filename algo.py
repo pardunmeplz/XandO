@@ -1,14 +1,15 @@
 import numpy as np
-import rules
+from gameplay import gameplay
 import random as r
 
+rules = gameplay(1)
 
 def minimax(state):
-
+    rules.state = state
     player = 1 if state.sum() == 0 else -1
     pending = np.where(state == 0)[0]
 
-    if rules.win(state, -player):
+    if rules.win(-player):
         # if state in wining place for previous player, return loss
         return -player
 

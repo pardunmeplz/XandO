@@ -1,2 +1,2 @@
 
-let myBoard = new board(['o', 'o', 'o', '', '', '', 'x', 'x', 'x'], 'x')
+let myBoard = new board()

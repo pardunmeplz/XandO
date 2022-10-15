@@ -1,23 +1,30 @@
 # driver code
+from distutils.log import debug
 import numpy as np
-import draw as d
-import rules
+from gameplay import gameplay
 import algo as PC
+from flask import Flask, jsonify, request
+from flask_restful import Resource, Api
 
-state = np.zeros(9, dtype=int)
+game = gameplay(1)
+app = Flask(__name__)
+api = Api(app)
 
-for _ in range(9):
+class Bridge(Resource):
+    def get(self):
+        data = request.args
 
-    player = 1 if state.sum() == 0 else -1  # 1 -> X and -1 -> Y
+        if game.draw():
+            return(response(game.state.tolist()))
 
-    if player == 1:
-        move = PC.nextMove(state)
-    else:
-        move = d.playerInput(state)
+        if game.playMove(int(data['move'])):
+            game.playMove(PC.nextMove(game.state))
 
-    state[move] = player
-    d.render(state)
+        response = jsonify(game.state.tolist())
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
+  
+api.add_resource(Bridge, '/')
 
-    if rules.win(state, player):
-        print(player, " wins")
-        break
+if __name__ == "__main__":
+    app.run(debug=True)
