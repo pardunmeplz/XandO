@@ -9,7 +9,6 @@ import rules
 
 def render(state):
     for i, box in enumerate(state):
-
         if box == 1:
             print('X', end='\t')
         elif box == -1:
