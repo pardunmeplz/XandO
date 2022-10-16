@@ -1,12 +1,15 @@
 # XandO
-Just a basic x and o game running in the terminal
 
-each box is numbered from 0 - 8 as
+A single player x and o game written in python with a browser based frontend
 
-|0   |1   |2   |
-| -- | -- | -- |
-|3   |4   |5   |
-|6   |7   |8   |
+### Backend
+- written in python -> flask
+  just recieves get requests with the player move added as a parameter and responds with an updated state array
+- backtracking algorithm based on minimax game throry to calculate computer response
 
-- Input box number to play on its designated square
-- Used backtracking algorithm based on MiniMax game theory to play against PC
+### Frontend
+- written in HTML, CSS and vanilla javascript 
+
+__disclaimer:__ there are a million easier and more practical ways to give your python project a UI than to host an api using flask and fetching the requests in a seperate webpage. I just did this out of curiosity.
+
+work in progress . . .
