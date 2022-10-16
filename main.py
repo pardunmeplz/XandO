@@ -18,7 +18,8 @@ class Bridge(Resource):
             return(response(game.state.tolist()))
 
         if game.playMove(int(data['move'])):
-            game.playMove(PC.nextMove(game.state))
+            if not game.draw():
+                game.playMove(PC.nextMove(game.state))
 
         response = jsonify(game.state.tolist())
         response.headers.add('Access-Control-Allow-Origin', '*')

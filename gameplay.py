@@ -17,8 +17,8 @@ class gameplay:
     def playMove(self, move):
         
         # check if move allowed
-        available = np.where(self.state == 0)[0]
-        if(move not in available): return False
+        allowed = np.where(self.state == 0)[0]
+        if(move not in allowed): return False
         
         self.state[move] = self.chance
         self.chance = -self.chance
@@ -38,6 +38,8 @@ class gameplay:
                 return True
         return False
 
-    def draw(state): # draw condition
-        taken = np.where(state != 0)[0]
-        return len(taken) == 9
+    def draw(self): # draw condition
+        allowed = np.where(self.state == 0)[0]
+        print(allowed)
+        print(allowed.size)
+        return allowed.size == 0
