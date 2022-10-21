@@ -1,5 +1,4 @@
 # driver code
-from distutils.log import debug
 import numpy as np
 from gameplay import gameplay
 import algo as PC
