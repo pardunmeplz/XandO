@@ -9,10 +9,16 @@ class gameplay:
     state = np.zeros(9, dtype=int) # board state
     
     chance = 1 # current chance
-    player = -1 # human player
+    player = 1 # human player
 
     def __init__(self, player):
         self.player = player
+
+    def reset(self):
+        self.state = np.zeros(9, dtype=int)
+        self.player = - self.player
+        self.chance = 1
+        return self.player
 
     def playMove(self, move):
         
@@ -43,3 +49,8 @@ class gameplay:
         print(allowed)
         print(allowed.size)
         return allowed.size == 0
+    
+    def end(self):
+        if self.draw(): return 0
+        if self.win(self.player): return 1
+        if self.win(-self.player):return -1

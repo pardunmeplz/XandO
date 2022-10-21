@@ -19,10 +19,23 @@ class board {
                         case 0: return index
                     }
                 }))
-                console.log(newState['PromiseResult'])
                 this.render(newState)
             }
         })
+
+        document.getElementById(-1).onclick = async () => { // reset button
+            let newState = await this.bridge.getState(-1).then((x) => x.map((element, index) => {
+                switch (element) {
+                    case -1: return 'o'
+                    case 1: return 'x'
+                    case 0: return index
+                }
+            }))
+            this.render(newState)
+            document.getElementById("prompt").innerText = "Play Game!"
+        }
+
+
     }
 
     render = (newState) => {
@@ -38,7 +51,7 @@ class board {
     getClass = (element) => {
         switch (element) {
             case 'o': return 'zero'
-            case 'x': return 'X'
+            case 'x': return 'WIN'
             default: return ''
         }
     }
