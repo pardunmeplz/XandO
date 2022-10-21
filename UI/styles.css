@@ -16,16 +16,17 @@ body {
 
 button {
     display: flex;
-    background-color: #30475E;
-    height: 60px;
-    width: 60px;
+    background-color: #263749;
+    color: #30475E;
+    height: 100px;
+    width: 100px;
     margin: 5px;
     border: 0ch;
     border-radius: 20px;
     align-items: center;
     justify-content: center;
-    font-weight: bold;
-    font-size: 30px;
+    font-size: 20px;
+    font-style: italic;
 }
 
 button:hover {
@@ -36,9 +37,15 @@ button.zero {
 
     color: #F5F5F5;
     background-color: #30475e93;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: bold;
 }
 
 button.X {
     color: #F05454;
     background-color: #30475e93;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: bold;
 }

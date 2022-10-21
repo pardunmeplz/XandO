@@ -5,26 +5,18 @@ class board {
     state = []
 
     constructor() {
-        // const init = Promise.resolve(this.bridge.getState(-1))
-        //     .map((element) => {
-        //         switch (element) {
-        //             case -1: return 'o'
-        //             case 1: return 'x'
-        //             case 0: return ''
-        //         }
-        //     })
-        const init = ['', '', '', '', '', '', '', '', '']
+        const init = ['0', '1', '2', '3', '4', '5', '6', '7', '8']
         console.log(init)
         init.forEach((element, index) => {
             this.state[index] = init
             document.getElementById(index).innerText = element;
             document.getElementById(index).className = this.getClass(element)
             document.getElementById(index).onclick = async () => {
-                let newState = await this.bridge.getState(index).then((x) => x.map((element) => {
+                let newState = await this.bridge.getState(index).then((x) => x.map((element, index) => {
                     switch (element) {
                         case -1: return 'o'
                         case 1: return 'x'
-                        case 0: return ''
+                        case 0: return index
                     }
                 }))
                 console.log(newState['PromiseResult'])
