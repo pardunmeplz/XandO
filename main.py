@@ -5,6 +5,8 @@ from gameplay import gameplay
 import algo as PC
 from flask import Flask, jsonify, request
 from flask_restful import Resource, Api
+import os
+
 
 game = gameplay(1)
 app = Flask(__name__)
@@ -47,4 +49,5 @@ class Bridge(Resource):
 api.add_resource(Bridge, '/')
 
 if __name__ == "__main__":
+    os.system(r"UI\\board.html")
     app.run(debug=True)
