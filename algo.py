@@ -2,55 +2,73 @@ import numpy as np
 from gameplay import gameplay
 import random as r
 
-rules = gameplay(1)
 
-def minimax(state):
-    rules.state = state
-    player = 1 if state.sum() == 0 else -1
-    pending = np.where(state == 0)[0]
+class stateSpaceMap:
 
-    if rules.win(-player):
-        # if state in wining place for previous player, return loss
-        return -player
+    heuristicMap = {}
+    rules = gameplay(1)
 
-    if 0 not in state:
-        # draw so return draw
-        return 0
+    def __init__(self):
+        self.minimax(np.zeros(9, dtype=int))
 
-    drawcheck = 1
+    def minimax(self, state):
 
-    for move in pending:
-        nextState = np.copy(state)
-        nextState[move] = player  # played a move
+        self.rules.state = state
+        player = 1 if state.sum() == 0 else -1
+        pending = np.where(state == 0)[0]
 
-        output = minimax(nextState)  # checked the result
+        if self.rules.win(-player):
+            # if state in wining place for previous player, return loss
 
-        if output == player:  # if favourable move found, play it
-            return player
+            self.heuristicMap[tuple(state)] = -player
+            return -player
 
-        drawcheck *= output
+        if 0 not in state:
+            # draw so return draw
 
-    if drawcheck == 0:  # there is a draw possibility
-        return 0
-    else:
-        return -player  # all results were unfavourable
+            self.heuristicMap[tuple(state)] = 0
+            return 0
 
+        drawcheck = 1
 
-def nextMove(state):
+        for move in pending:
+            nextState = np.copy(state)
+            nextState[move] = player  # played a move
 
-    player = 1 if state.sum() == 0 else -1
-    moves = np.where(state == 0)[0]
-    r.shuffle(moves)
-    analyze = []
+            output = self.minimax(nextState)  # checked the result
 
-    for move in moves:
-        nextState = np.copy(state)
-        nextState[move] = player
-        analyze.append((minimax(nextState), move))
+            if output == player:  # if favourable move found, play it
+                self.heuristicMap[tuple(state)] = player
+                return player
 
-    if player == 1:
-        analyze.sort(key=lambda tup: tup[0], reverse=True)
-    else:
-        analyze.sort(key=lambda tup: tup[0])
+            drawcheck *= output
 
-    return analyze[0][1]
+        if drawcheck == 0:  # there is a draw possibility
+            self.heuristicMap[tuple(state)] = 0
+            return 0
+        else:
+            self.heuristicMap[tuple(state)] = -player
+            return -player  # all results were unfavourable
+
+    def nextMove(self, state):
+
+        player = 1 if state.sum() == 0 else -1
+        moves = np.where(state == 0)[0]
+        r.shuffle(moves)
+        analyze = []
+
+        for move in moves:
+            nextState = np.copy(state)
+            nextState[move] = player
+
+            if tuple(nextState) in self.heuristicMap:
+                analyze.append((self.heuristicMap[tuple(nextState)], move))
+            else:
+                analyze.append((self.minimax(nextState), move))
+
+        if player == 1:
+            analyze.sort(key=lambda tup: tup[0], reverse=True)
+        else:
+            analyze.sort(key=lambda tup: tup[0])
+        print(analyze)
+        return analyze[0][1]
