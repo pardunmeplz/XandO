@@ -4,8 +4,8 @@ A single player x and o game written in python with a browser based frontend
 Start the main.py file to run the game
 
 dependencies ->
-  flask 1.1.2
-  flask-restful 0.3.8
+  - flask 1.1.2
+  - flask-restful 0.3.8
 
 ## Backend
 
