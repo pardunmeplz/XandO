@@ -22,9 +22,6 @@ __disclaimer:__ there are a million easier and more practical ways to give your 
 ### To-DO
 
 - Add Evaluation bar that shows who has the advantage in game
-- Change algorithm for computer response for better speeds
-  - Use backTracking algorithm first at start to initialize the state tree and save it
-  - Look up adequite response from said state tree to avoid recalculating every time
 - Make the UI update in real-time
 
 work in progress . . .
