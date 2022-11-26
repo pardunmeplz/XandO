@@ -1,6 +1,6 @@
 /**
  * Class mantains the initialization and state management of the game board
- * along with cross checking game rules
+ * 
  */
 class Board {
 
@@ -9,9 +9,14 @@ class Board {
     #getClass = {
         '1': 'X',
         '0': '',
-        '-1': 'O'
+        '-1': 'O',
+        'w': 'win'
     }
-    Turn = false
+    Turn = true
+
+    constructor() {
+        addEventListener
+    }
 
     /**
      * Makes a grid of 9 buttons in rows of 3 seperated by divs
@@ -42,12 +47,19 @@ class Board {
             let button = document.createElement("button")
             button.id = 'button-' + i
             button.innerText = i
+            mydiv.append(button)
+
             button.onclick = () => {
+
                 if (!this.Turn) { return }
-                this.setState(i, -1)
+                if (tieCheck(this.#state)) { return }
+
+                this.setState((state) => {
+                    state[i] = -1
+                    return state
+                })
                 this.Turn = !this.Turn
             }
-            mydiv.append(button)
         }
     }
 
@@ -56,22 +68,29 @@ class Board {
      * update the dom based on the changes in board state
      */
     #renderBoard() {
+        console.log('rendering')
         if (this.#state == this.#rendered) { return }
         this.#state.forEach((element, index) => {
-            if (element != this.#rendered[index]) {
-                let button = document.getElementById("button-" + index)
-                button.className = this.#getClass[element]
-                button.innerText = this.#getClass[element]
-            }
+
+            if (element == this.#rendered[index]) return
+
+            let button = document.getElementById("button-" + index)
+            button.className = this.#getClass[element]
+            if (element != 'w') button.innerText = this.#getClass[element]
         })
+
         this.#rendered = [...this.#state]
     }
 
     /**
-     * method to set the state of a button on the board
+     * method to change state of the board. 
+     * pass a function with a single state parameter to the method
+     * the function should return the updated state 
+     * @param {Function} func 
      */
-    setState(index, value) {
-        this.#state[index] = value
+    setState(func) {
+        console.log('setting')
+        this.#state = func(this.#state)
         this.#renderBoard()
     }
 }
