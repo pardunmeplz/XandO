@@ -1,7 +1,5 @@
 
 class board {
-
-    bridge = new api()
     state = []
 
     constructor() {
@@ -12,25 +10,11 @@ class board {
             document.getElementById(index).innerText = element;
             document.getElementById(index).className = this.getClass(element)
             document.getElementById(index).onclick = async () => {
-                let newState = await this.bridge.getState(index).then((x) => x.map((element, index) => {
-                    switch (element) {
-                        case -1: return 'o'
-                        case 1: return 'x'
-                        case 0: return index
-                    }
-                }))
                 this.render(newState)
             }
         })
 
         document.getElementById(-1).onclick = async () => { // reset button
-            let newState = await this.bridge.getState(-1).then((x) => x.map((element, index) => {
-                switch (element) {
-                    case -1: return 'o'
-                    case 1: return 'x'
-                    case 0: return index
-                }
-            }))
             this.render(newState)
             document.getElementById("prompt").innerText = "Play Game!"
         }

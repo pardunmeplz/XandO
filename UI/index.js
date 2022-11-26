@@ -1,2 +1,0 @@
-
-let myBoard = new board()
