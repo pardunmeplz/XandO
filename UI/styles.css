@@ -7,12 +7,12 @@ div {
     vertical-align: middle;
 }
 
-div.main {
+#board {
     flex-direction: column;
     justify-content: center;
 }
 
-div.title {
+#prompt {
     color: #d7e9ffb8;
     font-family: Courier, monospace
 }

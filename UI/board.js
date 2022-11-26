@@ -1,44 +1,22 @@
+function makeBoard() {
 
-class board {
-    state = []
+    // container div for board
+    main = document.createElement("div")
+    main.id = "board"
+    document.getElementsByTagName("body")[0].append(main)
 
-    constructor() {
-        const init = ['0', '1', '2', '3', '4', '5', '6', '7', '8']
-        console.log(init)
-        init.forEach((element, index) => {
-            this.state[index] = init
-            document.getElementById(index).innerText = element;
-            document.getElementById(index).className = this.getClass(element)
-            document.getElementById(index).onclick = async () => {
-                this.render(newState)
-            }
-        })
+    for (i = 0; i < 9; i++) {
 
-        document.getElementById(-1).onclick = async () => { // reset button
-            this.render(newState)
-            document.getElementById("prompt").innerText = "Play Game!"
+        // new row for every three buttons
+        if (i % 3 == 0) {
+            mydiv = document.createElement("div")
+            main.append(mydiv)
         }
 
-
+        // new button
+        button = document.createElement("button")
+        button.id = i
+        button.innerText = i
+        mydiv.append(button)
     }
-
-    render = (newState) => {
-        this.state.forEach((element, id) => {
-            if (element != newState[id]) {
-                this.state[id] = newState[id]
-                document.getElementById(id).innerText = this.state[id]
-                document.getElementById(id).className = this.getClass(this.state[id])
-            }
-        })
-    }
-
-    getClass = (element) => {
-        switch (element) {
-            case 'o': return 'zero'
-            case 'x': return 'WIN'
-            default: return ''
-        }
-    }
-
-
 }
