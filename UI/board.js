@@ -122,7 +122,10 @@ class Board {
         this.#state = func(this.#state)
         this.#renderBoard()
     }
-
+    /**
+     * method to reset board state to blank.
+     * Also switches player from X to O and vice-versa.
+     */
     reset() {
         this.player = - this.player
         this.turn = this.player == 1
