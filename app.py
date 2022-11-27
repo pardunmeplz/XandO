@@ -1,5 +1,4 @@
 '''
-
 contains class and object to store the current state of the ongoing game
 '''
 import websockets
@@ -9,24 +8,17 @@ from algo import AI
 import json
 import typing
 
-class State:
-    '''
-    ## Game state
-    State object that contains all attributes to accurately describe
-    The current state of the X and O game
-    '''
-    boardState = np.zeros(9, dtype=int)
-    player = -1
-    turn = False
-    gameOver = False
-
-    def send(self):
-        return json.dumps(self)        
-
 class Socket():
     connections:typing.Set[object] = set()
+    gameState = {
+    'boardState':np.zeros(9, dtype=int),
+    'player':1,
+    'turn':True,
+    'gameOver':False
+    }
+    nextMove = AI()
 
-    async def sender(self,message):
+    async def send(self,message):
         for websocket in self.connections:
             await websocket.send(message)
 
@@ -34,8 +26,13 @@ class Socket():
         self.connections.add(websocket)
         try:
             while True:
-                message = await websocket.recv()
-                print(message)
+                message = json.loads(await websocket.recv())
+                if not message: continue
+                self.gameState = message
+                if (not self.gameState['gameOver']) and (not self.gameState['turn']):
+                    self.gameState['boardState'][self.nextMove(self.gameState['boardState'])] = -self.gameState['player']
+                self.send(json.dumps(self.gameState))
+                
         except:
             self.connections.remove(websocket)
 
@@ -45,6 +42,4 @@ class Socket():
 
 
 if __name__ == "__main__":
-    gameState = State()
-    nextMove = AI()
     asyncio.run(Socket().main())
