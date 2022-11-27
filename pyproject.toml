@@ -8,7 +8,12 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
+websockets = "^10.4"
+numpy = "^1.23.5"
 
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^0.991"
 
 [build-system]
 requires = ["poetry-core"]
