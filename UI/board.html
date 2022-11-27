@@ -14,10 +14,10 @@
     <!--Displays if player is X or O-->
     <h2 id="displayPlayer">You are playing as </h2>
 
-    <script>myBoard.makeBoard()</script>
-    <h2 id="prompt">
-        <script>document.currentScript.parentElement.innerText = myBoard.prompt.turn</script>
-    </h2>
+    <script>myBoard.makeBoard(websocket)</script>
+    <h2 id="prompt" />
+    <script>myBoard.setPrompt()</script>
+
 
     <button id=-1 class="Reset" onclick="myBoard.reset()">Reset</button>
 
