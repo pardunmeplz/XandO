@@ -20,7 +20,7 @@ function winCheck(state) {
 
     for (let i = 0; i < wins.length; i++) {
         [x, y, z] = wins[i]
-        winner = (state(x) + state(y) + state(z)) / 3
+        winner = (state[x] + state[y] + state[z]) / 3
 
         if (winner == -1) return { winner: -1, sequence: wins[i] }
         if (winner == 1) return { winner: 1, sequence: wins[i] }
