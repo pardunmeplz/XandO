@@ -39,6 +39,7 @@ class Board {
         let main = document.createElement("div")
         main.id = "board"
         document.currentScript.parentElement.append(main)
+        document.getElementById("displayPlayer").innerText = "You are playing as ".concat(this.player == 1 ? 'X' : 'O')
 
         for (let i = 0; i < 9; i++) {
 
@@ -127,6 +128,7 @@ class Board {
         this.turn = this.player == 1
         document.getElementById("prompt").innerText = this.turn ? this.prompt.turn : this.prompt.notTurn
         this.setState(() => [0, 0, 0, 0, 0, 0, 0, 0, 0])
+        document.getElementById("displayPlayer").innerText = "You are playing as ".concat(this.player == 1 ? 'X' : 'O')
     }
 }
 
