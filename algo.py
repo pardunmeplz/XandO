@@ -28,11 +28,11 @@ def win_check(state, player:typing.Literal[0,-1,1])-> bool:
             return True
     return False
 
-def allowed(state)-> typing.MutableSequence:
+def allowed(state):
     '''
     Returns all moves in a state that are allowed to be played
     '''
-    ans,*_ = np.where(state == 0)
+    ans = np.where(state == 0)[0]
     return ans
 
 
