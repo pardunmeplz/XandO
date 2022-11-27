@@ -10,7 +10,7 @@ class Board {
         '1': 'X',
         '0': '',
         '-1': 'O',
-        'w': 'WIN'
+        '3': 'WIN'
     }
     prompt = {
         'win': 'You win!!',
@@ -79,7 +79,7 @@ class Board {
 
                 this.setState((state) => {
                     winObject.sequence.forEach((index) => {
-                        state[index] = 'w'
+                        state[index] = 3
                     })
                     return state
                 })
@@ -135,4 +135,3 @@ class Board {
     }
 }
 
-var myBoard = new Board()
