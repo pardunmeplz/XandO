@@ -1,6 +1,5 @@
 /**
  * Class mantains the initialization and state management of the game board
- * 
  */
 class Board {
 
@@ -10,13 +9,11 @@ class Board {
         '1': 'X',
         '0': '',
         '-1': 'O',
-        'w': 'win'
+        'w': 'WIN'
     }
-    Turn = true
-
-    constructor() {
-        addEventListener
-    }
+    turn = true
+    gameOver = false
+    player = 1
 
     /**
      * Makes a grid of 9 buttons in rows of 3 seperated by divs
@@ -51,14 +48,31 @@ class Board {
 
             button.onclick = () => {
 
-                if (!this.Turn) { return }
-                if (tieCheck(this.#state)) { return }
+                if (!this.turn || this.gameOver) return
+                if (!isValid(i, this.#state)) return
 
                 this.setState((state) => {
-                    state[i] = -1
+                    state[i] = this.player
                     return state
                 })
-                this.Turn = !this.Turn
+                this.turn = !this.turn
+
+                if (tieCheck(this.#state)) {
+                    this.gameOver = true
+                    return
+                }
+
+                let winObject = winCheck(this.#state)
+                if (winObject == null) return
+
+                this.setState((state) => {
+                    winObject.sequence.forEach((index) => {
+                        state[index] = 'w'
+                    })
+                    return state
+                })
+                this.gameOver = true
+
             }
         }
     }
@@ -68,8 +82,7 @@ class Board {
      * update the dom based on the changes in board state
      */
     #renderBoard() {
-        console.log('rendering')
-        if (this.#state == this.#rendered) { return }
+        if (this.#state == this.#rendered) return
         this.#state.forEach((element, index) => {
 
             if (element == this.#rendered[index]) return
@@ -77,6 +90,7 @@ class Board {
             let button = document.getElementById("button-" + index)
             button.className = this.#getClass[element]
             if (element != 'w') button.innerText = this.#getClass[element]
+            if (element == 0) button.innerText = index
         })
 
         this.#rendered = [...this.#state]
@@ -89,11 +103,15 @@ class Board {
      * @param {Function} func 
      */
     setState(func) {
-        console.log('setting')
         this.#state = func(this.#state)
         this.#renderBoard()
     }
-}
 
+    reset() {
+        this.player = - this.player
+        this.turn = this.player == 1
+        this.setState(() => [0, 0, 0, 0, 0, 0, 0, 0, 0])
+    }
+}
 
 var myBoard = new Board()
