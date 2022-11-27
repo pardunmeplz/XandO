@@ -1,5 +1,6 @@
 /**
  * Class mantains the initialization and state management of the game board
+ * Add an element with "prompt" as ID that has innerText to display wins /losses/ties
  */
 class Board {
 
@@ -10,6 +11,13 @@ class Board {
         '0': '',
         '-1': 'O',
         'w': 'WIN'
+    }
+    prompt = {
+        'win': 'You win!!',
+        'loss': 'You lose :(',
+        'tie': 'Its a tie :/',
+        'turn': 'Play move !',
+        'notTurn': 'Playing . . .'
     }
     turn = true
     gameOver = false
@@ -30,7 +38,7 @@ class Board {
         // container div for board
         let main = document.createElement("div")
         main.id = "board"
-        document.getElementsByTagName('body')[0].append(main)
+        document.currentScript.parentElement.append(main)
 
         for (let i = 0; i < 9; i++) {
 
@@ -55,9 +63,12 @@ class Board {
                     state[i] = this.player
                     return state
                 })
+
                 this.turn = !this.turn
+                document.getElementById("prompt").innerText = this.prompt.notTurn
 
                 if (tieCheck(this.#state)) {
+                    document.getElementById("prompt").innerText = this.prompt.tie
                     this.gameOver = true
                     return
                 }
@@ -71,8 +82,12 @@ class Board {
                     })
                     return state
                 })
-                this.gameOver = true
 
+                document
+                    .getElementById("prompt").innerText = winObject.winner == this.player ?
+                        this.prompt.win : this.prompt.loss
+
+                this.gameOver = true
             }
         }
     }
@@ -110,6 +125,7 @@ class Board {
     reset() {
         this.player = - this.player
         this.turn = this.player == 1
+        document.getElementById("prompt").innerText = this.turn ? this.prompt.turn : this.prompt.notTurn
         this.setState(() => [0, 0, 0, 0, 0, 0, 0, 0, 0])
     }
 }
