@@ -17,6 +17,11 @@ div {
     font-family: Courier, monospace
 }
 
+#displayPlayer {
+    color: #d7e9ffb8;
+    font-family: Courier, monospace
+}
+
 body {
     background-color: #121212;
     display: flex;
