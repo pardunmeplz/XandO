@@ -18,7 +18,7 @@ def win_check(state:typing.List[int], player:typing.Literal[0,-1,1])-> bool:
     Function checks if passed player has a winning sequence
     in the passed state array.
     '''
-    moves = [x for x in state if x == player]
+    moves = [i for i,x in enumerate(state) if x == player]
     wins = [(0, 1, 2), (3, 4, 5), (6, 7, 8),
         (0, 3, 6), (1, 4, 7), (2, 5, 8),
         (0, 4, 8), (2, 4, 6)]
@@ -115,4 +115,4 @@ class AI:
 
 if __name__ == "__main__":
     play = AI()
-    print(play([0]*9))
+    print(play([1,0,-1,0,0,0,0,0,1]))

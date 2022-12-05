@@ -1,5 +1,6 @@
-var myBoard = new Board()
 const websocket = new WebSocket("ws://localhost:8765/")
+var myBoard = new Board(websocket)
+
 window.addEventListener("DOMContentLoaded", async () => {
 
     websocket.addEventListener('open', () => {

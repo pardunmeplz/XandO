@@ -4,18 +4,19 @@
  */
 class Board {
 
-    #state = [0, 0, 1, 0, 0, 0, 0, 0, 0]
     #rendered = { ... this.#state }
     #getClass = {
         '1': 'X',
         '0': '',
         '-1': 'O',
-        '3': 'WIN'
+        '3': 'WIN',
+        '-3': 'WIN'
     }
-    turn = true
-    gameOver = false
-    player = 1
 
+
+    constructor(websocket) {
+        this.websocket = websocket
+    }
     /**
      * Makes a grid of 9 buttons in rows of 3 seperated by divs
      * and appends them to parent of the script tag running the function
@@ -26,7 +27,7 @@ class Board {
      * | 3 | 4 | 5 |
      * | 6 | 7 | 8 |
      */
-    makeBoard(websocket) {
+    makeBoard() {
         // container div for board
         let main = document.createElement("div")
         main.id = "board"
@@ -46,11 +47,12 @@ class Board {
             let buttonState = this.#state[i]
             button.id = 'button-' + i
             button.className = this.#getClass[buttonState]
-            if (buttonState != 3) button.innerText = this.#getClass[buttonState]
+            button.innerText = buttonState > 0 ? 'X' : 'O'
             if (buttonState == 0) button.innerText = i
             mydiv.append(button)
 
             button.onclick = () => {
+                let websocket = this.websocket
                 // filter out useless inputs
                 if (!this.turn || this.gameOver || !isValid(i, this.#state)) return
 
@@ -73,7 +75,7 @@ class Board {
                 // someone won!!!
                 this.setState((state) => {
                     winObject.sequence.forEach((index) => {
-                        state[index] = 3
+                        state[index] = winObject.winner * 3
                     })
                     return state
                 })
@@ -84,6 +86,11 @@ class Board {
         }
     }
 
+    /**
+     * Method updates prompt based off known state values
+     * if game has a winner, pass it to the method.
+     * @param {int} winner 
+     */
     setPrompt(winner = 0) {
         let prompt = {
             'win': 'You win!!',
@@ -120,7 +127,7 @@ class Board {
 
             let button = document.getElementById("button-" + index)
             button.className = this.#getClass[element]
-            if (abs(element) != 3) button.innerText = this.#getClass[element]
+            button.innerText = element > 0 ? 'X' : 'O'
             if (element == 0) button.innerText = index
         })
 
@@ -150,8 +157,14 @@ class Board {
         this.setState(() => [0, 0, 0, 0, 0, 0, 0, 0, 0])
         document.getElementById("displayPlayer").innerText = "You are playing as ".concat(this.player == 1 ? 'X' : 'O')
         this.setPrompt()
+        this.websocket.send(this.jsonState())
     }
 
+    /**
+     * returns the game state as a json string to use as a message
+     * to send to the server.
+     * @returns {string} jsonMessage
+     */
     jsonState() {
         return JSON.stringify({
             'type': 'move',

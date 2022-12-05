@@ -10,10 +10,10 @@ import typing
 class Socket():
     connections:typing.Set[object] = set()
     gameState = {
-    'boardState':[0]*9,
-    'player':1,
-    'turn':True,
-    'gameOver':False
+        'boardState':[0]*9,
+        'player':1,
+        'turn':True,
+        'gameOver':False
     }
     nextMove = AI()
 
