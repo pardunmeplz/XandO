@@ -1,0 +1,76 @@
+div {
+    position: ansolute;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    vertical-align: middle;
+}
+
+div.main {
+    flex-direction: column;
+    justify-content: center;
+}
+
+div.title {
+    color: #d7e9ffb8;
+    font-family: Courier, monospace
+}
+
+body {
+    background-color: #121212;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    vertical-align: middle;
+}
+
+button {
+    display: flex;
+    background-color: #263749;
+    color: #3c5773;
+    height: 100px;
+    width: 100px;
+    margin: 5px;
+    border: 0ch;
+    border-radius: 20px;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-style: italic;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+button.zero {
+
+    color: #F5F5F5;
+    background-color: #30475e93;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: bold;
+}
+
+button.X {
+    color: #a1ff87;
+    background-color: #30475e93;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: bold;
+}
+
+button.WIN {
+    color: #a1ff87;
+    background-color: #30475e93;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: bold;
+}
+
+button.Reset {
+    height: 50px;
+    color: #d7e9ffb8;
+}
