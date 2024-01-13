@@ -18,10 +18,3 @@ dependencies ->
 - written in HTML, CSS and vanilla javascript
 
 __disclaimer:__ there are a million easier and more practical ways to give your python project a UI than to host an api using flask and fetching the requests in a seperate webpage. I just did this out of curiosity.
-
-### To-DO
-
-- Add Evaluation bar that shows who has the advantage in game
-- Make the UI update in real-time
-
-work in progress . . .
